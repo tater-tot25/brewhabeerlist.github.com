@@ -1,41 +1,134 @@
-# Welcome to Brewha's Taplist!
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Brewha's Taplist</title>
+<style>
+  /* Reset and base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #1e1e2f;
+    color: #eee;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
 
-<h1>Current Tap List</h1>
-<div id="beer-menu" style="display: flex; flex-wrap: wrap; gap: 1em; justify-content: center;"></div>
+  h1 {
+    font-weight: 700;
+    font-size: 2.5rem;
+    margin-bottom: 0.25em;
+    color: #ffcb05;
+    text-shadow: 0 0 5px #ffcb05aa;
+  }
 
-<script>
-const apiUrl = "https://script.google.com/macros/s/AKfycbz7bLjFjF_doYOu-A6SXU98tJpTB8FnC0Pq1oK8vsUuAAUSbFKUkE7hvevyBNTvIgI/exec";
+  h2 {
+    margin-top: 0;
+    font-weight: 500;
+    color: #bbb;
+    margin-bottom: 2rem;
+  }
 
-fetch(apiUrl)
-  .then(res => res.json())
-  .then(beers => {
-    const container = document.getElementById("beer-menu")
+  #beer-menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 960px;
+  }
 
-    beers.forEach(beer => {
-      const card = document.createElement("div");
-      card.style = `
-        background: white;
-        border-radius: 10px;
-        box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-        padding: 1em;
-        max-width: 300px;
-        flex: 1 1 200px;
-        font-family: sans-serif;
-      `;
+  .card {
+    background: linear-gradient(135deg, #292947, #383862);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(255,203,5,0.25);
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+  }
+  .card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 12px 30px rgba(255,203,5,0.5);
+  }
 
-      card.innerHTML = `
-        <div style="font-weight: bold; font-size: 1.2em;">${beer.Name}</div>
-        <div><strong>Type:</strong> ${beer.Type}</div>
-        <div><strong>ABV:</strong> ${beer.ABV }<strong>%</strong></div>
-        <div><strong>Brewery:</strong> ${beer.Brewery}</div>
-        <div><strong>Location:</strong> ${beer.Location}</div>
-      `;
+  .card h3 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    color: #ffcb05;
+    font-size: 1.4rem;
+  }
 
-      container.appendChild(card);
-    });
-  })
-  .catch(error => {
-    document.getElementById("beer-menu").textContent = "Failed to load beer menu.";
-    console.error("Error:", error);
-  });
-</script>
+  .card p {
+    margin: 0.3em 0;
+    line-height: 1.3;
+  }
+
+  .card p strong {
+    color: #fff;
+  }
+
+  footer {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  @media (max-width: 400px) {
+    body {
+      padding: 1rem 0.5rem;
+    }
+    h1 {
+      font-size: 2rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <h1>🍻 Brewha's Taplist</h1>
+  <h2>Current Tap List</h2>
+
+  <div id="beer-menu">
+    <p>Loading beers…</p>
+  </div>
+
+  <script>
+    const apiUrl = "https://script.google.com/macros/s/AKfycbz7bLjFjF_doYOu-A6SXU98tJpTB8FnC0Pq1oK8vsUuAAUSbFKUkE7hvevyBNTvIgI/exec";
+
+    fetch(apiUrl)
+      .then(res => res.json())
+      .then(beers => {
+        const container = document.getElementById("beer-menu");
+        container.innerHTML = ""; // Clear loading text
+
+        beers.forEach(beer => {
+          const card = document.createElement("div");
+          card.classList.add("card");
+
+          card.innerHTML = `
+            <h3>${beer.Name}</h3>
+            <p><strong>Type:</strong> ${beer.Type}</p>
+            <p><strong>ABV:</strong> ${beer.ABV}%</p>
+            <p><strong>Brewery:</strong> ${beer.Brewery}</p>
+            <p><strong>Location:</strong> ${beer.Location}</p>
+          `;
+          container.appendChild(card);
+        });
+      })
+      .catch(error => {
+        const container = document.getElementById("beer-menu");
+        container.innerHTML = "<p style='color: #f44336;'>Failed to load beer menu.</p>";
+        console.error("Error loading beer data:", error);
+      });
+  </script>
+
+  <footer>
+    &copy; Brewha's Taplist — updated live from our Google Sheet
+  </footer>
+</body>
+</html>
