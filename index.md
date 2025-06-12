@@ -11,9 +11,9 @@
   }
   body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: #1e1e2f;
-    color: #eee;
+    font-family: 'Georgia', serif;
+    background: #2a3a1b; /* deep olive green */
+    color: #e6e3d3; /* warm cream */
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -23,16 +23,16 @@
 
   h1 {
     font-weight: 700;
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     margin-bottom: 0.25em;
-    color: #ffcb05;
-    text-shadow: 0 0 5px #ffcb05aa;
+    color: #c1d89e; /* light moss green */
+    text-shadow: 0 0 6px #7a9c3baa;
   }
 
   h2 {
     margin-top: 0;
     font-weight: 500;
-    color: #bbb;
+    color: #b6c89b;
     margin-bottom: 2rem;
   }
 
@@ -45,22 +45,22 @@
   }
 
   .card {
-    background: linear-gradient(135deg, #292947, #383862);
+    background: linear-gradient(135deg, #42542a, #617737);
     border-radius: 15px;
-    box-shadow: 0 8px 20px rgba(255,203,5,0.25);
+    box-shadow: 0 8px 20px rgba(102,136,42,0.35);
     padding: 1.5rem;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     cursor: default;
   }
   .card:hover {
     transform: translateY(-8px) scale(1.03);
-    box-shadow: 0 12px 30px rgba(255,203,5,0.5);
+    box-shadow: 0 12px 30px rgba(132,173,72,0.6);
   }
 
   .card h3 {
     margin-top: 0;
     margin-bottom: 0.5em;
-    color: #ffcb05;
+    color: #d1e7a3;
     font-size: 1.4rem;
   }
 
@@ -70,13 +70,13 @@
   }
 
   .card p strong {
-    color: #fff;
+    color: #f2f8d1;
   }
 
   footer {
     margin-top: 3rem;
     font-size: 0.9rem;
-    color: #666;
+    color: #9ea977;
   }
 
   @media (max-width: 400px) {
@@ -84,13 +84,13 @@
       padding: 1rem 0.5rem;
     }
     h1 {
-      font-size: 2rem;
+      font-size: 2.2rem;
     }
   }
 </style>
 </head>
 <body>
-  <h1>🍻 Brewha's Taplist</h1>
+  <h1>🍃 Brewha's Taplist</h1>
   <h2>Current Tap List</h2>
 
   <div id="beer-menu">
@@ -122,7 +122,7 @@
       })
       .catch(error => {
         const container = document.getElementById("beer-menu");
-        container.innerHTML = "<p style='color: #f44336;'>Failed to load beer menu.</p>";
+        container.innerHTML = "<p style='color: #f08080;'>Failed to load beer menu.</p>";
         console.error("Error loading beer data:", error);
       });
   </script>
