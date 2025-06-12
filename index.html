@@ -1,113 +1,110 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Brewha's Taplist 🧉</title>
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Brewha's Taplist 🧉</title>
+<style>
+  /* Reset and base */
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Georgia', serif;
+    background: #2a3a1b; /* deep olive green */
+    color: #e6e3d3; /* warm cream */
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem;
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 2.8rem;
+    margin-bottom: 0.25em;
+    color: #c1d89e; /* light moss green */
+    text-shadow: 0 0 6px #7a9c3baa;
+  }
+
+  h2 {
+    margin-top: 0;
+    font-weight: 500;
+    color: #b6c89b;
+    margin-bottom: 2rem;
+  }
+
+  #beer-menu {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 960px;
+  }
+
+  .card {
+    background: linear-gradient(135deg, #42542a, #617737);
+    border-radius: 15px;
+    box-shadow: 0 8px 20px rgba(102,136,42,0.35);
+    padding: 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: default;
+  }
+  .card:hover {
+    transform: translateY(-8px) scale(1.03);
+    box-shadow: 0 12px 30px rgba(132,173,72,0.6);
+  }
+
+  .card h3 {
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    color: #d1e7a3;
+    font-size: 1.4rem;
+  }
+
+  .card p {
+    margin: 0.3em 0;
+    line-height: 1.3;
+  }
+
+  .card p strong {
+    color: #f2f8d1;
+  }
+
+  #last-updated {
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #9ea977;
+    font-style: italic;
+  }
+
+  footer {
+    margin-top: 3rem;
+    font-size: 0.9rem;
+    color: #9ea977;
+  }
+
+  @media (max-width: 400px) {
     body {
-      margin: 0;
-      font-family: 'Georgia', serif;
-      background: #2a3a1b;
-      color: #e6e3d3;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 2rem 1rem;
+      padding: 1rem 0.5rem;
     }
-
     h1 {
-      font-weight: 700;
-      font-size: 2.8rem;
-      margin-bottom: 0.25em;
-      color: #c1d89e;
-      text-shadow: 0 0 6px #7a9c3baa;
+      font-size: 2.2rem;
     }
-
-    h2 {
-      margin-top: 0;
-      font-weight: 500;
-      color: #b6c89b;
-      margin-bottom: 2rem;
-    }
-
-    #beer-menu {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.5rem;
-      width: 100%;
-      max-width: 960px;
-    }
-
-    .card {
-      background: linear-gradient(135deg, #42542a, #617737);
-      border-radius: 15px;
-      box-shadow: 0 8px 20px rgba(102,136,42,0.35);
-      padding: 1.5rem;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      cursor: default;
-    }
-
-    .card:hover {
-      transform: translateY(-8px) scale(1.03);
-      box-shadow: 0 12px 30px rgba(132,173,72,0.6);
-    }
-
-    .card h3 {
-      margin-top: 0;
-      margin-bottom: 0.5em;
-      color: #d1e7a3;
-      font-size: 1.4rem;
-    }
-
-    .card p {
-      margin: 0.3em 0;
-      line-height: 1.3;
-    }
-
-    .card p strong {
-      color: #f2f8d1;
-    }
-
-    footer {
-      margin-top: 3rem;
-      font-size: 0.9rem;
-      color: #9ea977;
-      text-align: center;
-    }
-
-    #last-updated {
-      margin-top: 0.5rem;
-      font-size: 0.8rem;
-      color: #b0c08d;
-    }
-
-    @media (max-width: 400px) {
-      body {
-        padding: 1rem 0.5rem;
-      }
-      h1 {
-        font-size: 2.2rem;
-      }
-    }
-  </style>
+  }
+</style>
 </head>
 <body>
-  <h1>🔮 Brewha Taps ⚗️</h1>
+  <h1>🔮Brewha Taps⚗️</h1>
   <h2>Current Taps (Might Be Outdated If A Keg Just Kicked)</h2>
 
   <div id="beer-menu">
     <p>Loading beers…</p>
   </div>
-
-  <footer>
-    &copy; Brewha's Taplist — updated live from our Google Sheet
-    <div id="last-updated"></div>
-  </footer>
+  
+  <p id="last-updated"></p>
 
   <script>
     const apiUrl = "https://script.google.com/macros/s/AKfycbz7bLjFjF_doYOu-A6SXU98tJpTB8FnC0Pq1oK8vsUuAAUSbFKUkE7hvevyBNTvIgI/exec";
@@ -115,10 +112,12 @@
     fetch(apiUrl)
       .then(res => res.json())
       .then(data => {
-        const container = document.getElementById("beer-menu");
-        container.innerHTML = ""; // Clear loading text
-
         const beers = data.beers || data;
+        const container = document.getElementById("beer-menu");
+        const updated = document.getElementById("last-updated");
+
+        container.innerHTML = ""; // Clear loading
+
         beers.forEach(beer => {
           const card = document.createElement("div");
           card.classList.add("card");
@@ -134,9 +133,8 @@
         });
 
         if (data.lastUpdated) {
-          const lastUpdated = new Date(data.lastUpdated);
-          document.getElementById("last-updated").textContent =
-            "Last updated: " + lastUpdated.toLocaleString();
+          const date = new Date(data.lastUpdated);
+          updated.textContent = `Last updated: ${date.toLocaleString()}`;
         }
       })
       .catch(error => {
@@ -145,5 +143,9 @@
         console.error("Error loading beer data:", error);
       });
   </script>
+
+  <footer>
+    &copy; Brewha's Taplist — updated live from our Google Sheet
+  </footer>
 </body>
 </html>
