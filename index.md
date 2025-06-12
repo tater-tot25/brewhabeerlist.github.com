@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Brewha's Taplist</title>
 <style>
+header, /* common header */
+h1#site-title, /* some themes */
+.page-title {
+  display: none !important;
+}
   /* Reset and base */
   * {
     box-sizing: border-box;
