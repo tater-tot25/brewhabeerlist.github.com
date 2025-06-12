@@ -95,7 +95,7 @@ h1#site-title, /* some themes */
 </style>
 </head>
 <body>
-  <h1>🍃 Brewha's Taplist</h1>
+  <h1>Brewha's Taplist</h1>
   <h2>Current Tap List</h2>
 
   <div id="beer-menu">
