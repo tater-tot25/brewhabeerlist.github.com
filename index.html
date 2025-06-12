@@ -107,42 +107,43 @@
   <p id="last-updated"></p>
 
   <script>
-    const apiUrl = "https://script.google.com/macros/s/AKfycbz7bLjFjF_doYOu-A6SXU98tJpTB8FnC0Pq1oK8vsUuAAUSbFKUkE7hvevyBNTvIgI/exec";
+  const apiUrl = "https://script.google.com/macros/s/AKfycbz7bLjFjF_doYOu-A6SXU98tJpTB8FnC0Pq1oK8vsUuAAUSbFKUkE7hvevyBNTvIgI/exec";
 
-    fetch(apiUrl)
-      .then(res => res.json())
-      .then(data => {
-        const beers = data.beers || data;
-        const container = document.getElementById("beer-menu");
-        const updated = document.getElementById("last-updated");
+  fetch(apiUrl)
+    .then(res => res.json())
+    .then(data => {
+      const beers = data.beers;  // <-- use the 'beers' array here
+      const container = document.getElementById("beer-menu");
+      const updated = document.getElementById("last-updated");
 
-        container.innerHTML = ""; // Clear loading
+      container.innerHTML = ""; // Clear loading message
 
-        beers.forEach(beer => {
-          const card = document.createElement("div");
-          card.classList.add("card");
+      beers.forEach(beer => {
+        const card = document.createElement("div");
+        card.classList.add("card");
 
-          card.innerHTML = `
-            <h3>${beer.Name}</h3>
-            <p><strong>Type:</strong> ${beer.Type}</p>
-            <p><strong>ABV:</strong> ${beer.ABV}%</p>
-            <p><strong>Brewery:</strong> ${beer.Brewery}</p>
-            <p><strong>Location:</strong> ${beer.Location}</p>
-          `;
-          container.appendChild(card);
-        });
-
-        if (data.lastUpdated) {
-          const date = new Date(data.lastUpdated);
-          updated.textContent = `Last updated: ${date.toLocaleString()}`;
-        }
-      })
-      .catch(error => {
-        const container = document.getElementById("beer-menu");
-        container.innerHTML = "<p style='color: #f08080;'>Failed to load beer menu.</p>";
-        console.error("Error loading beer data:", error);
+        card.innerHTML = `
+          <h3>${beer.Name}</h3>
+          <p><strong>Type:</strong> ${beer.Type}</p>
+          <p><strong>ABV:</strong> ${beer.ABV}%</p>
+          <p><strong>Brewery:</strong> ${beer.Brewery}</p>
+          <p><strong>Location:</strong> ${beer.Location}</p>
+        `;
+        container.appendChild(card);
       });
-  </script>
+
+      if (data.lastUpdated) {
+        const date = new Date(data.lastUpdated);
+        updated.textContent = `Last updated: ${date.toLocaleString()}`;
+      }
+    })
+    .catch(error => {
+      const container = document.getElementById("beer-menu");
+      container.innerHTML = "<p style='color: #f08080;'>Failed to load beer menu.</p>";
+      console.error("Error loading beer data:", error);
+    });
+</script>
+
 
   <footer>
     &copy; Brewha's Taplist — updated live from our Google Sheet
